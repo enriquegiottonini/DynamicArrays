@@ -13,13 +13,13 @@ int main(void)
     printf("a[1]=1, available: %d \n", test->available);
     printArray(test);
 
-    intDynarray *test2 = intDynarray_resize(test, 4);
+    intDynarray *test2 = intDynarray_resize(test, 100);
     printf("resize array to 8, avaible: %d, size: %d \n", test2->available, test2->capacity);
     printArray(test);
     printArray(test2);
 
     insertAt(test, 7, 44);
-    printf("A[7] = 44, available: %d \n", test->available);
+    printf("A[7] = 44, available: %d \n", test2->available);
     printArray(test2);
 
     intDynarray_delete(test);

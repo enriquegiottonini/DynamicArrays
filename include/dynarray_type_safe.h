@@ -7,12 +7,19 @@
 #include <string.h>
 
 #define DECL_DYNARRAY(typename, type)                                                        \
+    /*                                                                                       \
+        Pre:                                                                                 \
+        Post:                                                                                \
+        */                                                                                   \
     typedef struct                                                                           \
     {                                                                                        \
         int capacity, available;                                                             \
         type *arr;                                                                           \
     } typename;                                                                              \
-                                                                                             \
+    /*                                                                                       \
+       Pre:                                                                                  \
+       Post:                                                                                 \
+    */                                                                                       \
     typename *typename##_new(int size)                                                       \
     {                                                                                        \
         typename *newDynarr = malloc(sizeof(typename));                                      \
@@ -31,18 +38,38 @@
         newDynarr->arr = arr;                                                                \
         return newDynarr;                                                                    \
     }                                                                                        \
+    /*                                                                                       \
+        Pre:                                                                                 \
+        Post:                                                                                \
+     */                                                                                      \
     bool isEmpty(const typename *dynarr) { return (dynarr->available == dynarr->capacity); } \
+    /*                                                                                       \
+       Pre:                                                                                  \
+       Post:                                                                                 \
+    */                                                                                       \
     bool isFull(const typename *dynarr) { return (dynarr->available > 0); }                  \
+    /*                                                                                       \
+       Pre:                                                                                  \
+       Post:                                                                                 \
+    */                                                                                       \
     type getElementAt(typename *dynarr, int pos)                                             \
     {                                                                                        \
         return *(dynarr->arr + (pos * sizeof(type)));                                        \
     }                                                                                        \
+    /*                                                                                       \
+       Pre:                                                                                  \
+       Post:                                                                                 \
+    */ \
     type insertAt(typename *dynarr, int pos, type element)                                   \
     {                                                                                        \
         memcpy(dynarr->arr + (pos * sizeof(type)), &element, sizeof(type));                  \
         dynarr->available--;                                                                 \
         return getElementAt(dynarr, pos);                                                    \
     }                                                                                        \
+    /*                                                                                       \
+       Pre:                                                                                  \
+       Post:                                                                                 \
+    */                                                                                       \
     void copyTo(typename *src, typename *dest)                                               \
     {                                                                                        \
         for (int i = 0; i < src->capacity; i++)                                              \
@@ -51,7 +78,12 @@
         }                                                                                    \
         dest->available += src->available;                                                   \
     }                                                                                        \
+        /*                                                                                       \
+       Pre:                                                                                  \
+       Post:                                                                                 \
+    */  \
     void typename##_delete(typename *dynarr)                                                 \
+                                                                                     \
     {                                                                                        \
         if (dynarr != NULL)                                                                  \
         {                                                                                    \
@@ -59,7 +91,12 @@
             free(dynarr);                                                                    \
         }                                                                                    \
     }                                                                                        \
+        /*                                                                                       \
+       Pre:                                                                                  \
+       Post:                                                                                 \
+    */    \
     typename *typename##_resize(typename *dynarr, int factor)                                \
+                                                                                   \
     {                                                                                        \
         typename *newDynarr = typename##_new(factor * dynarr->capacity);                     \
         if (newDynarr == NULL)                                                               \
@@ -70,6 +107,10 @@
         return newDynarr;                                                                    \
     }                                                                                        \
                                                                                              \
+    /*                                                                                       \
+       Pre:                                                                                  \
+       Post:                                                                                 \
+    */                                                                                       \
     void printArray(typename *dynarr)                                                        \
     {                                                                                        \
         printf("\n( ");                                                                      \
