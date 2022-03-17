@@ -1,0 +1,6 @@
+#ifndef DOUBLE_ENDED_QUEUE_H
+#define DOUBLE_ENDED_QUEUE_H
+
+
+
+#endif
