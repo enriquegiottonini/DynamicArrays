@@ -1,24 +1,26 @@
-#ifndef DYNARRAY_TYPE_SAFE_H
-#define DYNARRAY_TYPE_SAFE_H
+#ifndef DYNAMICARRAYS_H
+#define DYNAMICARRAYS_H
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
 
+/*  Implementation of a type safe dynamic array using macros.
+    typename: intDynarray, doubleDynarray, floatDynarray, etc.
+    type: int, double, float, etc.
+*/
 #define DECL_DYNARRAY(typename, type)                                                        \
-    /*                                                                                       \
-        Pre:                                                                                 \
-        Post:                                                                                \
-        */                                                                                   \
+                                                                                             \
     typedef struct                                                                           \
     {                                                                                        \
         int capacity, available;                                                             \
         type *arr;                                                                           \
     } typename;                                                                              \
-    /*                                                                                       \
-       Pre:                                                                                  \
-       Post:                                                                                 \
+    /* initialize a dynamic array of (type) elements.                                        \
+       Pre: none.                                                                            \
+       Post: pointer to a dynamic array, NULL if there is no memory available.               \
+             all the elements are set to 0.                                                  \
     */                                                                                       \
     typename *typename##_new(int size)                                                       \
     {                                                                                        \
@@ -39,36 +41,40 @@
         return newDynarr;                                                                    \
     }                                                                                        \
     /*                                                                                       \
-        Pre:                                                                                 \
-        Post:                                                                                \
+        Pre: pointer to an initialized, no NULL, dynamic array (valid dynamic array).        \
+        Post: returns True if its empty, False otherwise.                                    \
      */                                                                                      \
     bool isEmpty(const typename *dynarr) { return (dynarr->available == dynarr->capacity); } \
     /*                                                                                       \
-       Pre:                                                                                  \
-       Post:                                                                                 \
+       Pre: pointer to an initialized, no NULL, dynamic array (valid dynamic array).         \
+       Post: returns True if its full, False otherwise.                                      \
     */                                                                                       \
     bool isFull(const typename *dynarr) { return (dynarr->available > 0); }                  \
     /*                                                                                       \
-       Pre:                                                                                  \
-       Post:                                                                                 \
+       Pre: valid dynamic array, position within the size of dynarray,                       \
+            and element at position previously inserted.                                     \
+       Post: value of element at that position.                                              \
     */                                                                                       \
-    type getElementAt(typename *dynarr, int pos)                                             \
+    type getElementAt(const typename *src, int pos)                                          \
     {                                                                                        \
-        return *(dynarr->arr + (pos * sizeof(type)));                                        \
+        return *(src->arr + (pos * sizeof(type)));                                           \
     }                                                                                        \
     /*                                                                                       \
-       Pre:                                                                                  \
-       Post:                                                                                 \
-    */ \
-    type insertAt(typename *dynarr, int pos, type element)                                   \
+       Pre: valid dynamic array, valid position,                                             \
+            and element of the same type as defined at initializing the dynamic array.       \
+       Post: element from the dynamic array at that position.                                \
+    */                                                                                       \
+    type insertAt(typename *dest, int pos, type element)                                     \
     {                                                                                        \
-        memcpy(dynarr->arr + (pos * sizeof(type)), &element, sizeof(type));                  \
-        dynarr->available--;                                                                 \
-        return getElementAt(dynarr, pos);                                                    \
+        memcpy(dest->arr + (pos * sizeof(type)), &element, sizeof(type));                    \
+        dest->available--;                                                                   \
+        return getElementAt(dest, pos);                                                      \
     }                                                                                        \
-    /*                                                                                       \
-       Pre:                                                                                  \
-       Post:                                                                                 \
+    /* copy the values of a dynamic array to an other one.                                   \
+        Pre: both dynamic arrays are valid, the capacity(size) of the                        \
+            destination dynamic array is larger then the capacity of                         \
+            the source dyanmic array.                                                        \
+       Post: all the elements have been copied from one dynamic array to the other.          \
     */                                                                                       \
     void copyTo(typename *src, typename *dest)                                               \
     {                                                                                        \
@@ -76,14 +82,18 @@
         {                                                                                    \
             insertAt(dest, i, getElementAt(src, i));                                         \
         }                                                                                    \
-        dest->available += src->available;                                                   \
+        dest->available += src->available; /* The method is also copying elements            \
+                                              from the source dynamic array that             \
+                                              are set to the initial value of 0.             \
+                                              We resize the available capacity               \
+                                              accordingly. */                                \
     }                                                                                        \
-        /*                                                                                       \
-       Pre:                                                                                  \
-       Post:                                                                                 \
-    */  \
+    /*                                                                                       \
+        Pre: valid dynamic array.                                                            \
+        Post: all the elements and the dynamic array has been deleted, liberated, vanished.  \
+    */                                                                                       \
     void typename##_delete(typename *dynarr)                                                 \
-                                                                                     \
+                                                                                             \
     {                                                                                        \
         if (dynarr != NULL)                                                                  \
         {                                                                                    \
@@ -91,12 +101,13 @@
             free(dynarr);                                                                    \
         }                                                                                    \
     }                                                                                        \
-        /*                                                                                       \
-       Pre:                                                                                  \
-       Post:                                                                                 \
-    */    \
+    /*                                                                                       \
+        Pre: a valid dynamic array.                                                          \
+        Post: inmutable and persistent first dynamic array, returns a new one                \
+              with copy of the elements of the first and a new capacity(size).               \
+    */                                                                                       \
     typename *typename##_resize(typename *dynarr, int factor)                                \
-                                                                                   \
+                                                                                             \
     {                                                                                        \
         typename *newDynarr = typename##_new(factor * dynarr->capacity);                     \
         if (newDynarr == NULL)                                                               \
@@ -108,8 +119,8 @@
     }                                                                                        \
                                                                                              \
     /*                                                                                       \
-       Pre:                                                                                  \
-       Post:                                                                                 \
+       Pre: valid dynamic array.                                                             \
+       Post: shows in console a representation of the dynamic array.                         \
     */                                                                                       \
     void printArray(typename *dynarr)                                                        \
     {                                                                                        \
@@ -121,4 +132,5 @@
         printf(")\n");                                                                       \
     }
 
+    
 #endif

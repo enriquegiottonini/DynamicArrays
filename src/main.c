@@ -1,5 +1,4 @@
-//#include "dynarray.h"
-#include "dynarray_type_safe.h"
+#include "DynamicArrays.h"
 
 DECL_DYNARRAY(intDynarray, int)
 
