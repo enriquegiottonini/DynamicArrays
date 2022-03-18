@@ -18,7 +18,7 @@
         type *arr;                                                                           \
     } typename;                                                                              \
     /* initialize a dynamic array of (type) elements.                                        \
-        Pre: size >= 1.                                                                           \
+        Pre: size >= 1.                                                                      \
         Post: pointer to a dynamic array, NULL if there is no memory available.              \
              all the elements are set to 0.                                                  \
         O(n)                                                                                 \
@@ -52,12 +52,12 @@
        Post: returns True if its full, False otherwise.                                      \
        O(1)                                                                                  \
     */                                                                                       \
-    bool isFull(const typename *dynarr) { return (dynarr->available > 0); }                  \
+    bool isFull(const typename *dynarr) { return !(dynarr->available > 0); }                  \
     /*                                                                                       \
-        Pre: valid dynamic array, position within the size of dynarray,                       \
+        Pre: valid dynamic array, position within the size of dynarray,                      \
             and element at position previously inserted.                                     \
-        Post: value of element at that position.                                              \
-        O(1)                                                                                  \
+        Post: value of element at that position.                                             \
+        O(1)                                                                                 \
     */                                                                                       \
     type getElementAt(const typename *src, int pos)                                          \
     {                                                                                        \
@@ -79,8 +79,8 @@
         Pre: both dynamic arrays are valid, the capacity(size) of the                        \
             destination dynamic array is larger then the capacity of                         \
             the source dyanmic array.                                                        \
-        Post: all the elements have been copied from one dynamic array to the other.          \
-        O(n)                                                                                  \
+        Post: all the elements have been copied from one dynamic array to the other.         \
+        O(n)                                                                                 \
     */                                                                                       \
     void copyTo(typename *src, typename *dest)                                               \
     {                                                                                        \
@@ -125,7 +125,6 @@
         copyTo(dynarr, newDynarr);                                                           \
         return newDynarr;                                                                    \
     }                                                                                        \
-                                                                                             \
     /*                                                                                       \
        Pre: valid dynamic array.                                                             \
        Post: shows in console a representation of the dynamic array.                         \
