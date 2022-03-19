@@ -39,6 +39,16 @@
 /* Test cases for an integer Dynamic Array. */
 DECL_DYNARRAY(intDynarray, int)
 
+void printArray(intDynarray *dynarr)
+{
+    printf("\n( ");
+    for (int i = 0; i < dynarr->capacity; i++)
+    {
+        printf("%d ", *(dynarr->arr + i * sizeof(int)));
+    }
+    printf(")\n");
+}
+
 bool empty()
 {
     int n;
@@ -163,7 +173,7 @@ bool resize()
     for (int factor = 2; factor <= 10; factor++)
     {
         for (n = 1; n <= 8; n = 2 * n)
-        { 
+        {
             printf("\nfor a dynamic array 1 of size %d", n);
             dynarr_1 = intDynarray_new(n);
             check(dynarr_1 != NULL, "Expecting enough memory.");
@@ -174,7 +184,7 @@ bool resize()
                 check((insertAt(dynarr_1, i, i) == i), "Expecting to get the element inserted.");
             }
 
-            printf("\n  a factor of %d and a dynamic array 2 of size %d", factor ,factor * n);
+            printf("\n  a factor of %d and a dynamic array 2 of size %d", factor, factor * n);
             dynarr_2 = intDynarray_resize(dynarr_1, factor);
             check(dynarr_2 != dynarr_1, "Expecting enough memory.");
 
@@ -203,11 +213,10 @@ fail:
 
 int main(void)
 {
-    // run_test(empty);
-    // run_test(insert);
-    // run_test(full);
-    // run_test(copy);
-    // run_test(resize);
-
+    run_test(empty);
+    run_test(insert);
+    run_test(full);
+    run_test(copy);
+    run_test(resize);
     return 0;
 }

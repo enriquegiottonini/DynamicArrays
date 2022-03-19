@@ -125,19 +125,5 @@
         copyTo(dynarr, newDynarr);                                                           \
         return newDynarr;                                                                    \
     }                                                                                        \
-    /*                                                                                       \
-       Pre: valid dynamic array.                                                             \
-       Post: shows in console a representation of the dynamic array.                         \
-       O(n)                                                                                  \
-    */                                                                                       \
-    void printArray(typename *dynarr)                                                        \
-    {                                                                                        \
-        printf("\n( ");                                                                      \
-        for (int i = 0; i < dynarr->capacity; i++)                                           \
-        {                                                                                    \
-            printf("%d ", *(dynarr->arr + i * sizeof(type)));                                \
-        }                                                                                    \
-        printf(")\n");                                                                       \
-    }
 
 #endif
