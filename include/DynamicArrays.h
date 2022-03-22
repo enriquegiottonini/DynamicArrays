@@ -52,16 +52,26 @@
        Post: returns True if its full, False otherwise.                                      \
        O(1)                                                                                  \
     */                                                                                       \
-    bool isFull(const typename *dynarr) { return !(dynarr->available > 0); }                  \
+    bool isFull(const typename *dynarr) { return !(dynarr->available > 0); }                 \
     /*                                                                                       \
         Pre: valid dynamic array, position within the size of dynarray,                      \
             and element at position previously inserted.                                     \
-        Post: value of element at that position.                                             \
+        Post: pointer to the address of element at that position.                            \
         O(1)                                                                                 \
+    */                                                                                       \
+    type *getAddressAt(const typename *src, int pos)                                         \
+    {                                                                                        \
+        return (src->arr + (pos * sizeof(type)));                                            \
+    }                                                                                        \
+    /*                                                                                       \
+       Pre: valid dynamic array, valid position,                                             \
+            and element of the same type as defined at initializing the dynamic array.       \
+       Post: value of the element from the dynamic array at that position.                   \
+       O(1)                                                                                  \
     */                                                                                       \
     type getElementAt(const typename *src, int pos)                                          \
     {                                                                                        \
-        return *(src->arr + (pos * sizeof(type)));                                           \
+        return *(getAddressAt(src, pos));                                                    \
     }                                                                                        \
     /*                                                                                       \
        Pre: valid dynamic array, valid position,                                             \
@@ -124,6 +134,6 @@
         }                                                                                    \
         copyTo(dynarr, newDynarr);                                                           \
         return newDynarr;                                                                    \
-    }                                                                                        \
+    }
 
 #endif
