@@ -13,18 +13,18 @@ LCC
 
 Se utiliza GNU Makefile donde:
 
-testDynarr.o: Genera el ejecutable para las pruebas de los arreglos dinámicos.
+-testDynarr.o: Genera el ejecutable para las pruebas de los arreglos dinámicos.
 
-testDynarr: Corre las pruebas de arreglos dinámicos con valgrind.
+-testDynarr: Corre las pruebas de arreglos dinámicos con valgrind.
 
-cleanDynarr: Elimina el ejectuable de las pruebas de los arreglos dinámicos.
+-cleanDynarr: Elimina el ejectuable de las pruebas de los arreglos dinámicos.
 
 
-testDeque.o: Genera el ejecutable para las pruebas de la cola doblemente terminada.
+-testDeque.o: Genera el ejecutable para las pruebas de la cola doblemente terminada.
 
-testDeque: Corre las las pruebas de la cola doblemente terminada con valgrind.
+-testDeque: Corre las las pruebas de la cola doblemente terminada con valgrind.
 
-cleanDeque: Elimina el ejectuable de las pruebas de la cola doblemente terminada.
+-cleanDeque: Elimina el ejectuable de las pruebas de la cola doblemente terminada.
 
 ## License
 
