@@ -38,14 +38,14 @@
 
 bool empty()
 {
-    int n=1;
+    int n=5;
     DoubleEndedQueue *deque;
     printf("\nfor initializing a deque of size %d", n);
     deque = deque_init(n);
     check(deque != NULL, "Expecting enough memory.");
     printDeque(deque);
 
-    check(deque_empty(deque), "Expecting an empty dynamic array.");
+    check(deque_empty(deque), "Expecting an empty deque.");
     deque_delete(deque);
     printf("\n");
     return true;
@@ -56,8 +56,110 @@ fail:
     return false;
 }
 
+bool full_back()
+{
+    int n=5;
+    DoubleEndedQueue *deque;
+    printf("\nfor initializing a deque of size %d", n);
+    deque = deque_init(n);
+    check(deque != NULL, "Expecting enough memory.");
+    printDeque(deque);
+    check(deque_empty(deque), "Expecting an empty deque.");
+
+    printf("Fill deque from the back");
+    for (int i=1; i<=n; i++)
+    {
+        push_back(deque, i);
+        printDeque(deque);
+    }
+    check(deque_full(deque), "Expecting deque to be full.");
+
+    printf("Pop deque from the back");
+    for (int i=n; i>=1; i--)
+    {
+        check((pop_back(deque) == i), "Expecting to pop the back.");
+    }
+    check(deque_empty(deque), "Expecting to have emptied the deque.");
+    printDeque(deque);
+  
+    printf("Fill deque from the front");
+    for (int i=1; i<=n; i++) 
+    {
+        push_front(deque, 7);
+        printDeque(deque);
+    }
+
+    printf("Pop deque from the front");
+    for (int i=1; i<=n; i++)
+    {
+        check((pop_back(deque) == 7), "Expecting to pop the back.");
+    }
+    check(deque_empty(deque), "Expecting to have emptied the deque.");
+    printDeque(deque);
+
+    deque_delete(deque);
+    printf("\n");
+    return true;
+
+fail:
+    if (deque != NULL)
+        deque_delete(deque);
+    return false;
+}
+
+bool resize()
+{
+    int n=5;
+    DoubleEndedQueue *deque;
+    printf("\nfor initializing a deque of size %d", n);
+    deque = deque_init(n);
+    check(deque != NULL, "Expecting enough memory.");
+    printDeque(deque);
+    check(deque_empty(deque), "Expecting an empty deque.");
+
+    printf("Fill deque from the back");
+    for (int i=1; i<=n; i++) 
+    {
+        push_back(deque, i);
+        printDeque(deque);
+    }
+    check(deque_full(deque), "Expecting deque to be full.");
+
+    // Add one more element from the back 
+    push_back(deque, 6);
+    check(!deque_full(deque), "Expecting deque to not be full, since there is a resize."); 
+    printDeque(deque);
+
+    printf("Fill deque from the front");
+    for (int i=1; i<=n; i++) 
+    {
+        push_front(deque, 7);
+        printDeque(deque); 
+    } 
+     
+    printf("Delete two arguments and expect resize"); 
+    check((pop_back(deque) == 6), "Expecting to pop the back."); 
+    check((pop_back(deque) == 5), "Expecting to pop the back.");
+    printDeque(deque);
+    push_front(deque, 8);
+    push_front(deque, 8);
+    check((back(deque) == 4), "Expecting to pop the back.");
+    check((front(deque) == 8), "Expecting to pop the back.");
+    printDeque(deque);
+
+    deque_delete(deque);
+    return true;
+ 
+fail:
+    if (deque != NULL)
+        deque_delete(deque);
+    return false;
+}
+
 int main(void)
 {
-    run_test(empty);
+    //run_test(empty);
+    //run_test(full_back);
+    run_test(resize);
     return 0;
 }
