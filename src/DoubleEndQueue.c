@@ -111,6 +111,10 @@ int pop_back(DoubleEndedQueue *deque)
 {
     int temp = getElementAt(deque->memory, deque->back);
 
+    if (deque->num_elements < deque->size / 2)
+    {
+        copyToNewDeque(deque, 0.5);
+    }
     // One element
     if (deque->front == deque->back)
     {
@@ -121,17 +125,17 @@ int pop_back(DoubleEndedQueue *deque)
         deque->back = (deque->back - 1 + deque->size) % deque->size;
 
     deque->num_elements--;
-    if (deque->num_elements < deque->size / 2)
-    {
-       copyToNewDeque(deque, 0.5);
-    }
     return temp;
 }
 
 int pop_front(DoubleEndedQueue *deque, int element)
 {
     int temp = getElementAt(deque->memory, deque->front);
-    
+    if (deque->num_elements < deque->size / 2)
+    {
+        copyToNewDeque(deque, 0.5);
+    }
+
     // One element
     if (deque->front == deque->back)
     {
@@ -142,10 +146,7 @@ int pop_front(DoubleEndedQueue *deque, int element)
         deque->front = (deque->back + 1) % deque->size;
 
     deque->num_elements--;
-    if (deque->num_elements < deque->size / 2)
-    {
-        copyToNewDeque(deque, 0.5);
-    }
+
     return temp;
 }
 

@@ -56,7 +56,7 @@ fail:
     return false;
 }
 
-bool full_back()
+bool full()
 {
     int n=5;
     DoubleEndedQueue *deque;
@@ -69,15 +69,16 @@ bool full_back()
     printf("Fill deque from the back");
     for (int i=1; i<=n; i++)
     {
-        push_back(deque, i);
+        push_back(deque, 3);
         printDeque(deque);
     }
     check(deque_full(deque), "Expecting deque to be full.");
 
     printf("Pop deque from the back");
-    for (int i=n; i>=1; i--)
+    for (int i=1; i<=n; i++)
     {
-        check((pop_back(deque) == i), "Expecting to pop the back.");
+        check((pop_back(deque) == 3), "Expecting to pop the back.");
+        printDeque(deque);
     }
     check(deque_empty(deque), "Expecting to have emptied the deque.");
     printDeque(deque);
@@ -137,14 +138,18 @@ bool resize()
         printDeque(deque); 
     } 
      
-    printf("Delete two arguments and expect resize"); 
+    printf("Delete three arguments and expect resize"); 
     check((pop_back(deque) == 6), "Expecting to pop the back."); 
     check((pop_back(deque) == 5), "Expecting to pop the back.");
+    check((pop_back(deque) == 4), "Expecting to pop the back.");
     printDeque(deque);
+
+    printf("Insert three arguments and expect resize");
     push_front(deque, 8);
-    push_front(deque, 8);
-    check((back(deque) == 4), "Expecting to pop the back.");
-    check((front(deque) == 8), "Expecting to pop the back.");
+    push_front(deque, 5);
+    push_back(deque, 5);
+    check((back(deque) == 5), "Expecting to pop the back.");
+    check((front(deque) == 5), "Expecting to pop the back.");
     printDeque(deque);
 
     deque_delete(deque);
@@ -158,8 +163,8 @@ fail:
 
 int main(void)
 {
-    //run_test(empty);
-    //run_test(full_back);
+    run_test(empty);
+    run_test(full);
     run_test(resize);
     return 0;
 }
