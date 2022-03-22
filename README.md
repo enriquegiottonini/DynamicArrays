@@ -1,52 +1,31 @@
-# DoubleEndQueue
+# DynamicArrays
 
+Pequeña biblioteca de arreglos dinamicos e implementación de una cola doblemente terminada, de tal forma que si el tamaño es insuficiente para una inserción esta se reajusta en un factor de 2, y si se elimina un elemento y más de la mitad no se utiliza se reduce la capacidad a la mitad.
 
-## Description
+## Authors
+Enrique Alejandro Giottonini Herrera
+Estructura de Datos
+LCC
 
-Pequeña biblioteca de arreglos dinamicos. Implementa una cola doblemente terminada con arreglos din ́amicos, de talforma que cuando el tama ̃no del arreglo es insuficiente para una inserci ́on se reajusta lacapacidad en un factor de 2.⋆Obt ́en 5 puntos adicionales si reduces la capacidad del arreglo cuando se eliminanelementos y m ́as de la mitad del arreglo no se utiliza
-
-## Getting Started
-
-### Dependencies
-
-* Describe any prerequisites, libraries, OS version, etc., needed before installing program.
-* ex. Windows 10
-
-### Installing
-
-* How/where to download your program
-* Any modifications needed to be made to files/folders
+## Descripción
 
 ### Executing program
 
-* How to run the program
-* Step-by-step bullets
-```
-code blocks for commands
-```
+Se utiliza GNU Makefile donde:
 
-## Help
+testDynarr.o: Genera el ejecutable para las pruebas de los arreglos dinámicos.
 
-Any advise for common problems or issues.
-```
-command to run if program contains helper info
-```
+testDynarr: Corre las pruebas de arreglos dinámicos con valgrind.
 
-## Authors
+cleanDynarr: Elimina el ejectuable de las pruebas de los arreglos dinámicos.
 
-Contributors names and contact info
 
-ex. Dominique Pizzie  
-ex. [@DomPizzie](https://twitter.com/dompizzie)
+testDeque.o: Genera el ejecutable para las pruebas de la cola doblemente terminada.
 
-## Version History
+testDeque: Corre las las pruebas de la cola doblemente terminada con valgrind.
 
-* 0.2
-    * Various bug fixes and optimizations
-    * See [commit change]() or See [release history]()
-* 0.1
-    * Initial Release
+cleanDeque: Elimina el ejectuable de las pruebas de la cola doblemente terminada.
 
 ## License
 
-This project is licensed under the [NAME HERE] License - see the LICENSE.md file for details
+This project is licensed under the [bbcita bblin]
