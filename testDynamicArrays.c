@@ -39,6 +39,7 @@
 /* Test cases for an integer Dynamic Array. */
 DECL_DYNARRAY(intDynarray, int)
 
+// Aux
 void printArray(intDynarray *dynarr)
 {
     printf("\n( ");
@@ -53,8 +54,8 @@ bool empty()
 {
     int n;
     intDynarray *dynarr;
-    for (n = 1; n <= 1024; n = 2 * n)
-    {
+    for (n = 1; n <= 1024; n = 2 * n) // Initialize dynamic arrays of diferent size and
+    {                                 // expect them to be empty.
         printf("\nfor initializing a dynamic array of size %d", n);
         dynarr = intDynarray_new(n);
         check(dynarr != NULL, "Expecting enough memory.");

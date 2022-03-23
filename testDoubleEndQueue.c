@@ -90,7 +90,7 @@ bool full()
         printDeque(deque);
     }
 
-    printf("Pop deque from the front");
+    printf("Pop deque from the front, all the way up til empty");
     for (int i=1; i<=n; i++)
     {
         check((pop_back(deque) == 7), "Expecting to pop the back.");
