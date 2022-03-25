@@ -1,6 +1,10 @@
 CC=gcc
 CFLAGS= -Wall -Wpedantic -Werror -g3 -Iinclude/
 
+all: testDynarr.o testDeque.o
+
+clean: cleanDynarr cleanDeque
+
 testDynarr.o: testDynamicArrays.c include/DynamicArrays.h
 	$(CC) $(CFLAGS) -o $@ $<
 

@@ -66,7 +66,7 @@ bool full()
     printDeque(deque);
     check(deque_empty(deque), "Expecting an empty deque.");
 
-    printf("Fill deque from the back");
+    printf("\nFill deque from the back");
     for (int i=1; i<=n; i++)
     {
         push_back(deque, 3);
@@ -74,7 +74,7 @@ bool full()
     }
     check(deque_full(deque), "Expecting deque to be full.");
 
-    printf("Pop deque from the back");
+    printf("\nPop deque from the back");
     for (int i=1; i<=n; i++)
     {
         check((pop_back(deque) == 3), "Expecting to pop the back.");
@@ -83,14 +83,14 @@ bool full()
     check(deque_empty(deque), "Expecting to have emptied the deque.");
     printDeque(deque);
   
-    printf("Fill deque from the front");
+    printf("\nFill deque from the front");
     for (int i=1; i<=n; i++) 
     {
         push_front(deque, 7);
         printDeque(deque);
     }
 
-    printf("Pop deque from the front, all the way up til empty");
+    printf("\nPop deque from the front, all the way up til empty");
     for (int i=1; i<=n; i++)
     {
         check((pop_back(deque) == 7), "Expecting to pop the back.");
@@ -118,7 +118,7 @@ bool resize()
     printDeque(deque);
     check(deque_empty(deque), "Expecting an empty deque.");
 
-    printf("Fill deque from the back");
+    printf("\nFill deque from the back");
     for (int i=1; i<=n; i++) 
     {
         push_back(deque, i);
@@ -131,20 +131,20 @@ bool resize()
     check(!deque_full(deque), "Expecting deque to not be full, since there is a resize."); 
     printDeque(deque);
 
-    printf("Fill deque from the front");
+    printf("\nFill deque from the front");
     for (int i=1; i<=n; i++) 
     {
         push_front(deque, 7);
         printDeque(deque); 
     } 
      
-    printf("Delete three arguments and expect resize"); 
+    printf("\nDelete three arguments and expect resize"); 
     check((pop_back(deque) == 6), "Expecting to pop the back."); 
     check((pop_back(deque) == 5), "Expecting to pop the back.");
     check((pop_back(deque) == 4), "Expecting to pop the back.");
     printDeque(deque);
 
-    printf("Insert three arguments and expect resize");
+    printf("\nInsert three arguments and expect resize");
     push_front(deque, 8);
     push_front(deque, 5);
     push_back(deque, 5);
