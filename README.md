@@ -1,7 +1,7 @@
 # DynamicArrays
 Pequeña biblioteca de arreglos dinamicos e implementación de una cola doblemente terminada, de tal forma que si el tamaño es insuficiente para una inserción esta se reajusta en un factor de 2, y si se elimina un elemento y más de la mitad no se utiliza se reduce la capacidad a la mitad.
 
-## Autor
+## Autór
 Enrique Alejandro Giottonini Herrera.
 Estructura de Datos.
 LCC.
